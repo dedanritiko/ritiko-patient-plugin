@@ -1,0 +1,7 @@
+{% if record.phone_number %}
+    <a href="tel:{{ record.phone_number }}" class="text-success">
+        <i class="fas fa-phone mr-1"></i>{{ record.phone_number }}
+    </a>
+{% else %}
+    <span class="text-muted">-</span>
+{% endif %}

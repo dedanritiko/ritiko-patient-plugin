@@ -1,0 +1,23 @@
+{
+  "author": "Ritiko Development Team",
+  "categories": [
+    "patient",
+    "management"
+  ],
+  "dependencies": [],
+  "description": "Enhanced patient list management with django-tables2 and django-filter for advanced searching and filtering",
+  "django_apps": [
+    "plugins.patient_plugin"
+  ],
+  "email": "dev@ritiko.com",
+  "enabled": true,
+  "name": "Patient List Plugin",
+  "tags": [
+    "patient",
+    "table",
+    "filter",
+    "list"
+  ],
+  "url": "https://github.com/ritiko/ritiko-py",
+  "version": "1.0.0"
+}

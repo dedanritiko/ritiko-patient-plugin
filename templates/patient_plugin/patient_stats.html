@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+
+{% block title %}Patient Statistics{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <i class="fas fa-chart-bar"></i>
+                        Patient Statistics
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <!-- Overall Statistics -->
+                    <div class="row">
+                        <div class="col-lg-3 col-6">
+                            <div class="small-box bg-info">
+                                <div class="inner">
+                                    <h3>{{ stats.total }}</h3>
+                                    <p>Total Patients</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-6">
+                            <div class="small-box bg-success">
+                                <div class="inner">
+                                    <h3>{{ stats.active }}</h3>
+                                    <p>Active Patients</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="fas fa-user-check"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-6">
+                            <div class="small-box bg-warning">
+                                <div class="inner">
+                                    <h3>{{ stats.inactive }}</h3>
+                                    <p>Inactive Patients</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="fas fa-user-times"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-6">
+                            <div class="small-box bg-danger">
+                                <div class="inner">
+                                    <h3>{{ stats.with_care_team }}</h3>
+                                    <p>With Care Team</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="fas fa-user-friends"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Gender Breakdown -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Gender Distribution</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="chart-responsive">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Gender</th>
+                                                    <th>Count</th>
+                                                    <th>Percentage</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for gender, count in stats.by_gender.items %}
+                                                <tr>
+                                                    <td>{{ gender|default:"Unknown" }}</td>
+                                                    <td>{{ count }}</td>
+                                                    <td>
+                                                        {% if stats.total > 0 %}
+                                                            {% widthratio count stats.total 100 %}%
+                                                        {% else %}
+                                                            0%
+                                                        {% endif %}
+                                                    </td>
+                                                </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Quick Actions -->
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Quick Actions</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="list-group">
+                                        <a href="{% url 'patient_plugin:patient_list' %}" class="list-group-item list-group-item-action">
+                                            <i class="fas fa-list"></i>
+                                            View Full Patient List
+                                        </a>
+                                        <a href="{% url 'patient_plugin:compact_patient_list' %}" class="list-group-item list-group-item-action">
+                                            <i class="fas fa-th-list"></i>
+                                            View Compact List
+                                        </a>
+                                        <a href="{% url 'patient_plugin:patient_list' %}?export=csv" class="list-group-item list-group-item-action">
+                                            <i class="fas fa-download"></i>
+                                            Export to CSV
+                                        </a>
+                                        <a href="{% url 'patient_plugin:patient_list' %}?is_active=True" class="list-group-item list-group-item-action">
+                                            <i class="fas fa-user-check"></i>
+                                            View Active Patients Only
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

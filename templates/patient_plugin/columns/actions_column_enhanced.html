@@ -1,0 +1,22 @@
+{% load patient_plugin_tags %}
+{% if perms.patients.can_view_patient_schedules or record|user_in_care_team:request.user %}
+<a href="{% url 'patients:schedule' record.pk %}">
+    <em class="fa-lg mr-2 fas fa-calendar-alt" title="Schedule"></em>
+</a>
+{% endif %}
+<a href="{% url 'patients:detail' record.pk %}">
+    <em class="fa-lg mr-2 fas fa-info-circle" title="Detail"></em>
+</a>
+{% if perms.patients.change_patient %}
+<a href="{% url 'patients:update' record.pk %}">
+    <em class="fa-lg mr-2 fas fa-edit" title="Update"></em>
+</a>
+{% endif %}
+<a href="{% url 'patients:chart' record.pk %}">
+    <em class="fa-lg mr-2 fas fa-notes-medical" title="Chart"></em>
+</a>
+{% if request.organization.enable_detailed_patient_profile %}
+<a href="{% url 'patients:portfolio' record.pk %}" target="_blank">
+    <em class="fa-lg mr-2 fas fa-id-badge" title="Printable Profile (Portfolio)"></em>
+</a>
+{% endif %}
